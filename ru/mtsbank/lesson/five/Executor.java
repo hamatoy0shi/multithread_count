@@ -2,8 +2,7 @@ package ru.mtsbank.lesson.five;
 
 public class Executor implements Runnable{
 
-    public boolean winner;
-    Counter counter;
+    private final Counter counter;
 
     public Executor(Counter counter) {
         this.counter = counter;
@@ -14,7 +13,7 @@ public class Executor implements Runnable{
         while (Counter.count < 100) {
             counter.increment();
         }
-        if (Counter.winnerName != Thread.currentThread().getName()) {
+        if ((Counter.winnerName == null) || !(Counter.winnerName.equals(Thread.currentThread().getName()))) {
             System.out.println(Thread.currentThread().getName() + ": I'm late...");
             counter.wake();
         }
